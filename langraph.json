@@ -1,0 +1,10 @@
+{
+  "dependencies": [
+    "langchain_openai",
+    "./agents"
+  ],
+  "graphs": {
+    "echo_app": "./agents/agent.py:graph"
+  },
+  "env": "./.env"
+}
