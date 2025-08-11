@@ -1,4 +1,3 @@
-langgraph
-langgraph-cli
-langchain-openai
+binance-connector
 python-dotenv
+python-dateutil

@@ -1,0 +1,3 @@
+.env
+binance_data/__pycache__
+aggregator/__pycache__
