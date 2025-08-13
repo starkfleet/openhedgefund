@@ -1,3 +1,0 @@
-binance-connector
-python-dotenv
-python-dateutil
