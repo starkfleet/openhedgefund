@@ -1,0 +1,9 @@
+cython
+numpy
+pandas
+tulipy
+fastapi==0.116.1
+starlette==0.47.2
+uvicorn==0.35.0
+anyio==4.10.0
+langgraph-cli[inmem]==0.3.6
