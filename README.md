@@ -1,8 +1,9 @@
 # openhedgefund
 Open source agentic hedge fund
 
+<img width="1530" height="1003" alt="Screenshot 2025-08-14 at 1 09 04 PM" src="https://github.com/user-attachments/assets/86c420b8-7d1d-4ed2-a381-9025f479265f" />
 
-
+test input.
 ```
 {
   "buy_condition": "ema(10) > ema(20)",
