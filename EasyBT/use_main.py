@@ -29,3 +29,14 @@ report = bt.backtester_signal_csv_report(config)
 print("Summary:\n", report["summary"]) 
 print("\nEquity curve (head):\n", report["equity_curve"].head())
 print("\nTrades (head):\n", report["trades"].head())
+
+# {
+#     "data": "../btc_data.csv",   
+#     "signal_column": "buy_sell_signal",
+#     "buy_value": 1,
+#     "sell_value": -1,
+#     "initial_cash": 100000,
+#     "commission_pct": 0.001,  
+#     "slippage_pct": 0.0005,   
+#     "position_mode": "all_in",  
+# }

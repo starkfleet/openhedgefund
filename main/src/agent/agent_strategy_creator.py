@@ -3,7 +3,10 @@ from dotenv import load_dotenv
 load_dotenv()
 import re
 from textwrap import dedent
-from script_runner import run_sandboxed_python_script
+try:
+    from .script_runner import run_sandboxed_python_script
+except ImportError:  # fallback when running as a standalone script
+    from script_runner import run_sandboxed_python_script
 import pandas as pd
 import io
 from typing import Optional
@@ -139,6 +142,22 @@ class StrategyCreatorAgent:
         ai_msg = self._llm.invoke(messages)
         return ai_msg.content
 
+    async def agenerate_strategy_creator_script(
+        self,
+        buy_condition: str = "SMA(10) > SMA(30)",
+        sell_condition: str = "SMA(10) < SMA(30)",
+        symbol: str = "BTC",
+        from_date: str = "2024-01-01",
+        to_date: str = "2025-01-01",
+        timeframe: str = "1d",
+        api_url: str = "https://97ne32z9yn5u.share.zrok.io",
+    ) -> str:
+        messages = self._build_generation_messages(
+            buy_condition, sell_condition, symbol, from_date, to_date, timeframe, api_url
+        )
+        ai_msg = await self._llm.ainvoke(messages)
+        return ai_msg.content
+
     def run_strategy_and_get_dataframe(
         self,
         buy_condition: str = "SMA(10) > SMA(30)",
@@ -150,7 +169,7 @@ class StrategyCreatorAgent:
         api_url: str = "https://97ne32z9yn5u.share.zrok.io",
     ) -> pd.DataFrame:
         script_string = self.generate_strategy_creator_script(
-            buy_condition, sell_condition, symbol, from_date, to_date, timeframe
+            buy_condition, sell_condition, symbol, from_date, to_date, timeframe, api_url
         )
         code = self._extract_python_code(script_string)
         result, stderr, exit_code = run_sandboxed_python_script(code)
@@ -203,4 +222,4 @@ if __name__ == "__main__":
         timeframe="1d",
         api_url="https://97ne32z9yn5u.share.zrok.io",
     )
-    df.to_csv("btc_data.csv", index=False)
+    df.to_csv("data/btc_data.csv", index=False)
