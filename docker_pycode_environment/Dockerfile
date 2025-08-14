@@ -5,4 +5,4 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # Install the required packages
-RUN pip install --no-cache-dir pandas numpy
+RUN pip install --no-cache-dir pandas requests
