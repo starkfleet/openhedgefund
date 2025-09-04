@@ -1,5 +1,6 @@
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
+import os
 load_dotenv()
 import re
 from textwrap import dedent
@@ -134,7 +135,7 @@ class StrategyCreatorAgent:
         from_date: str = "2024-01-01",
         to_date: str = "2025-01-01",
         timeframe: str = "1d",
-        api_url: str = "https://97ne32z9yn5u.share.zrok.io",
+        api_url: str = os.getenv("API_URL", "https://97ne32z9yn5u.share.zrok.io"),
     ) -> str:
         messages = self._build_generation_messages(
             buy_condition, sell_condition, symbol, from_date, to_date, timeframe, api_url
@@ -150,7 +151,7 @@ class StrategyCreatorAgent:
         from_date: str = "2024-01-01",
         to_date: str = "2025-01-01",
         timeframe: str = "1d",
-        api_url: str = "https://97ne32z9yn5u.share.zrok.io",
+        api_url: str = os.getenv("API_URL", "https://97ne32z9yn5u.share.zrok.io"),
     ) -> str:
         messages = self._build_generation_messages(
             buy_condition, sell_condition, symbol, from_date, to_date, timeframe, api_url
@@ -166,7 +167,7 @@ class StrategyCreatorAgent:
         from_date: str = "2024-01-01",
         to_date: str = "2025-01-01",
         timeframe: str = "1d",
-        api_url: str = "https://97ne32z9yn5u.share.zrok.io",
+        api_url: str = os.getenv("API_URL", "https://97ne32z9yn5u.share.zrok.io"),
     ) -> pd.DataFrame:
         script_string = self.generate_strategy_creator_script(
             buy_condition, sell_condition, symbol, from_date, to_date, timeframe, api_url
@@ -197,7 +198,7 @@ def run_strategy_and_get_dataframe(
     from_date: str = "2024-01-01",
     to_date: str = "2025-01-01",
     timeframe: str = "1d",
-    api_url: str = "https://97ne32z9yn5u.share.zrok.io",
+    api_url: str = os.getenv("API_URL", "https://97ne32z9yn5u.share.zrok.io"),
 ) -> pd.DataFrame:
     agent = StrategyCreatorAgent()
     return agent.run_strategy_and_get_dataframe(
@@ -220,6 +221,6 @@ if __name__ == "__main__":
         from_date="2024-01-01",
         to_date="2025-01-01",
         timeframe="1d",
-        api_url="https://97ne32z9yn5u.share.zrok.io",
+        api_url=os.getenv("API_URL", "https://97ne32z9yn5u.share.zrok.io"),
     )
     df.to_csv("data/btc_data.csv", index=False)
